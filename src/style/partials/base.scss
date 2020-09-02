@@ -1,3 +1,40 @@
+@import "mixins";
+
+/******* Примеси *******/
+
+%container {
+  min-width: 500px;
+  max-width: 800px;
+}
+%between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+%vertical-centered {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+%column {
+  display: flex;
+  flex-direction: column;
+}
+%show {
+  opacity: 1;
+  @include transition($default-transition);
+}
+%hide {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  @include transition($default-transition);
+}
+/******* end_Примеси *******/
+
+/******* Tags *******/
+
 a {
   text-decoration: none;
   color: #000;
@@ -54,8 +91,8 @@ body, html {
 }
 body {
   font-family: 'Montserrat', Arial, sans-serif;
-  background: $bg-main;
-  color: $base;
+  background: $bg-outside;
+  color: $text-color;
   font-size: $font-size-base;
   font-weight: 400;
   line-height: normal;
@@ -69,45 +106,105 @@ p {
 ul, ol {
   margin: 1em 0;
 }
+/******* end_Tags *******/
+
+/******* Components *******/
+
+.wrapper-page {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  background-color: $bg-main;
+  overflow: auto;
+  flex: 1;
+  height: 100%;
+  @extend %container;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 500px;
+    overflow-x: auto;
+  }
+}
 .header, .footer {
-  padding: 25px 0;
+  position: fixed;
+  box-sizing: border-box;
+  padding: 10px;
   text-align: center;
   font-weight: bold;
-}
-.header, footer {
-  background-color: #d1dde2;
-}
-.nn-container {
-  display: block;
-  min-width: 320px;
-  max-width: 1920px;
+  background-color: #f6f9fb;
+  height: 50px;
   width: 100%;
-  margin: 0 auto;
-  padding: 0 50px;
-  background-color: $bg-white;
+  z-index: 100;
+}
+.header {
+  left: 0;
+  @include border-bottom(1px, solid, #999);
+  &__inner {
+    @extend %container;
+    @extend %between;
+    @extend %vertical-centered;
+  }
+}
+.footer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  @include border-top(1px, solid, #999);
+  &__inner {
+    @extend %container;
+    @extend %between;
+    @extend %vertical-centered;
+  }
 }
 .main {
   background-color: $bg-main;
   text-align: center;
-  padding: 0 90px;
-  &__title{
-    margin: 30px 0;
-    font-weight: bold;
+  margin: 50px 0;
+  height: calc(100vh - 100px);
+  display: flex;
+  flex: 1;
+  &__content {
+    height: calc(100vh - 100px);
+    flex: 1;
+  }
+  &__sidebar {
+    width: 300px;
+    flex: none;
+    overflow: hidden;
   }
 }
-.title
+/******* end_Components *******/
+
+/* Blocks */
+
+.content {
+  padding: 20px 30px 20px;
+}
+.sidebar {
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: rgba(16, 204, 107, .2);
+  @include border-left(1px, solid, #ccc);
+  @include shadow(0 0 15px 0 rgba(51, 51, 51, 0.5));
+  @extend %column;
+  @extend %show;
+  @media screen and (max-width: 700px) {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    @include transition($default-transition);
+  }
+}
+/* end_Blocks */
+
 /******* atomic classes *******/
+
 ._bold {
   font-weight: bold;
 }
-._verticalStretch {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  .main {
-    display: flex;
-    flex: 1;
-    height: 100%;
-  }
+.bg-red {
+  background-color: red;
 }
-/******* end_atomic slesses *******/
+/******* end_atomic classes *******/

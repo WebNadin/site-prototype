@@ -1,0 +1,29 @@
+@mixin border-bottom($border-w, $border-s, $border-c) {
+  border-bottom-width: $border-w;
+  border-bottom-style: $border-s;
+  border-bottom-color: $border-c;
+}
+@mixin border-top($border-w, $border-s, $border-c) {
+  border-top-width: $border-w;
+  border-top-style: $border-s;
+  border-top-color: $border-c;
+}
+@mixin border-left($border-w, $border-s, $border-c) {
+  border-left-width: $border-w;
+  border-left-style: $border-s;
+  border-left-color: $border-c;
+}
+@mixin shadow($shadow) {
+  -webkit-box-shadow: ($shadow);
+  -moz-box-shadow: ($shadow);
+  -ms-box-shadow: ($shadow);
+  -o-box-shadow: ($shadow);
+  box-shadow: ($shadow);
+}
+@mixin transition($default-transition) {
+  -webkit-transition: $default-transition;
+  -moz-transition: $default-transition;
+  -ms-transition: $default-transition;
+  -o-transition: $default-transition;
+  transition: $default-transition;
+}
